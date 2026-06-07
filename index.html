@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>登录</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body{margin:0;padding:30px;background:#f5f5f5;}
+    .login{max-width:300px;margin:50px auto;background:white;padding:30px;border-radius:8px;}
+    input{width:100%;margin:8px 0;padding:10px;border:1px solid #ddd;border-radius:4px;}
+    button{width:100%;padding:10px;background:#409eff;color:white;border:none;border-radius:4px;margin-top:10px;}
+  </style>
+</head>
+<body>
+  <div class="login">
+    <h3>情报管理平台</h3>
+    <input id="username" placeholder="账号" value="admin">
+    <input id="password" type="password" placeholder="密码" value="123456">
+    <button onclick="login()">登录</button>
+  </div>
+
+  <script>
+    async function login() {
+      let user = document.getElementById('username').value;
+      let pwd = document.getElementById('password').value;
+      let { data } = await axios.post('/api/login', {
+        username: user,
+        password: pwd
+      });
+      if (data.code === 200) {
+        alert('登录成功');
+        location.href = '/home';
+      } else {
+        alert(data.msg);
+      }
+    }
+  </script>
+</body>
+</html>
